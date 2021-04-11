@@ -30,17 +30,16 @@ foreach($event in $Events){
   $trgt = @()
   foreach ($g in $username.MemberOf){ $trgt += (Get-ADGroup $g -Properties "CN").CN }
   $remaningGroups = $trgt -join ","
-  # if needed, change the values of the properties below to 
-  # point to the right variable/value 
+  # for username based SSO initialise username & domain properties; initialise the rest where necessary
   New-Object -TypeName PSCustomObject -Property @{
     eventID=$eventID
     timeWritten=$event.TimeWritten
-    username=$username.UserPrincipalName
+    username=""
     country=$username.Country
     email=$username.mail
     lastname=$username.sn
     firstname=$username.GivenName
-      domain=""
+    domain=""
     enabled=$username.Enabled
     removedGroup=$removedGroup
     customAttribute1=""
@@ -50,4 +49,3 @@ foreach($event in $Events){
     remaningGroups="'" + $remaningGroups + "'" } | Export-Csv "events.csv" -NoTypeInformation -Append
 }
 (Get-Content "events.csv").replace('"', '').replace("'",'"')| Set-Content "events.csv"
-
