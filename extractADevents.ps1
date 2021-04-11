@@ -43,10 +43,10 @@ foreach($event in $Events){
       domain=""
     enabled=$username.Enabled
     removedGroup=$removedGroup
-    customAttrbute1=""
-    customAttrbute2=""
-    customAttrbute3=""
-    customAttrbute4=""
+    customAttribute1=""
+    customAttribute2=""
+    customAttribute3=""
+    customAttribute4=""
     remaningGroups="'" + $remaningGroups + "'" } | Export-Csv "events.csv" -NoTypeInformation -Append
 }
 (Get-Content "events.csv").replace('"', '').replace("'",'"')| Set-Content "events.csv"
