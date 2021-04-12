@@ -14,4 +14,4 @@ REM deal its copy to UST folder, if all these files are not inside UST folder al
 REM assuming the use of UST version >= 2.6.0, user-sync.exe is used
 REM replace 'user-sync.exe' with 'python user-sync.pex' below if v<2.6.0
 REM assuming the batch file and the push_list.csv are in same location as UST
-user-sync.exe -t --strategy push --users file push_list.csv
+user-sync.exe -t --strategy push --users file push_list.csv --process-groups
