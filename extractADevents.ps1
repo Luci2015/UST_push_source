@@ -6,6 +6,7 @@
 # remove old events file
 Remove-Item "events.csv"
 Remove-Item "push_list.csv"
+
 # get events since 30 min ago (-0.5):
 $Begin = (Get-Date).AddHours(-0.5)
 $Events = Get-EventLog -logname Security  -After $Begin | where {$_.eventID -eq 4728 -or $_.EventID -eq 4729 -or $_.EventID -eq 4722 -or $_.EventID -eq 4725}
