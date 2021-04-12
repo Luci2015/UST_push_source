@@ -35,7 +35,7 @@ This is a sample file that contains the suite of scripts to be run in order to h
 - line 3: input the path where the UST folder containing the ps script is located
 - line 6: document the full path to the ```extractADevents.ps1``` file
 - line 10: if *python* is installed and recognised as a global command, it does not need any change, otherwise full path tp *python.exe* is required
-- line 17: for version of UST >= 2.6.0, the provided command line and arguments (```user-sync.exe -t --strategy push --users file push_list.csv```) runs a test-mode instance of the UST, targeting the *push_list.csv* file. Remove *-t* if changes are to be applied in Admin Console. Replace ```push_list.csv``` with the actual push list csv file name if you modified it in the ```prepare_push_list.py``` script.  
+- line 17: for version of UST >= 2.6.0, the provided command line and arguments (```user-sync.exe -t --strategy push --users file push_list.csv --process-groups```) runs a test-mode instance of the UST, targeting the *push_list.csv* file. Remove *-t* if changes are to be applied in Admin Console. Replace ```push_list.csv``` with the actual push list csv file name if you modified it in the ```prepare_push_list.py``` script.  
 
 ## What will happen
 - the PS script will extract from AD's audit logs the events 4722, 4725, 4728, 4729 (enable/disable account, add/remove to/from group) for the past given time
