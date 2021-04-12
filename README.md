@@ -44,4 +44,8 @@ This is a sample file that contains the suite of scripts to be run in order to h
 - with the resulting push_list.csv file, UST is run and the changes are forced in Admin Console: new accounts get added to mapped group(s), old accounts get added or removed from mapped groups, suspended accounts get removed from all mapped groups.  
  No account removal from Admin Console's Users menu happens, just group membership processing.
  
- 
+ # Known issues
+ - the PowerShell script only works with events for Global Security groups, not Universal; those groups are also mapped in UST's user-sync-config.yml file
+ - the script was not tested for more complicated AD configuration
+
+
