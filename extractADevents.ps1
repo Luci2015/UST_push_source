@@ -1,14 +1,16 @@
-# 4729 - account removal from group
-# 4728 - account add to group
+# 4729 - account removal from Global Security group
+# 4728 - account add to Global Security group
 # 4725 - account disabled
 # 4722 - account enabled
+# 4756 - account removal from Universal Security group
+# 4757 - account add to Universal Security group
 
 # remove old input files
 Remove-Item "events.csv"
 Remove-Item "push_list.csv"
 # get events since 30 min ago (-0.5):
 $Begin = (Get-Date).AddHours(-0.5)
-$Events = Get-EventLog -logname Security  -After $Begin | where {$_.eventID -eq 4728 -or $_.EventID -eq 4729 -or $_.EventID -eq 4722 -or $_.EventID -eq 4725}
+$Events = Get-EventLog -logname Security  -After $Begin | where {$_.eventID -eq 4728 -or $_.EventID -eq 4729 -or $_.EventID -eq 4722 -or $_.EventID -eq 4725 -or $_.EventID -eq 4756 -or $_.EventID -eq 4757}
 $already_queried = @{}
 $content = @{}
 foreach($event in $Events){
@@ -36,7 +38,7 @@ foreach($event in $Events){
 		}
   
   $eventID = $event.EventID
-  if ($eventID -eq "4729"){
+  if ($eventID -eq "4729" -or $eventID -eq "4757"){
   $removedGroup = ($event | Select-Object @{Name="groupName";Expression={ $_.ReplacementStrings[2]}}).groupName
   } else { $removedGroup = "" }
   
