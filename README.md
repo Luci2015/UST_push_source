@@ -46,6 +46,6 @@ This is a sample file that contains the suite of scripts to be run in order to h
  
  # Known issues
  - the PowerShell script only works with events for Global Security groups, not Universal; those groups are also mapped in UST's user-sync-config.yml file
- - the script was not tested for more complicated AD configuration
+ - the script was tested for an AD forest with one domain tree
 
 
