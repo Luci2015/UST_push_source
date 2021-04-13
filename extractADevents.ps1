@@ -30,7 +30,7 @@ foreach($event in $Events){
          try {  
 	# change extracted Properties as needed
         $username =  Get-ADUser -Identity $dn -Properties ("mail",
-                                                           "Country",
+                                                           "c",
                                                            "sn",
                                                            "GivenName",
                                                            "UserPrincipalName",
@@ -65,7 +65,7 @@ foreach($event in $Events){
     eventID=$eventID
     timeWritten=$event.TimeWritten
     username=""
-    country=$username.Country
+    country=$username.c
     email=$username.mail
     lastname=$username.sn
     firstname=$username.GivenName
@@ -74,8 +74,6 @@ foreach($event in $Events){
     removedGroup=$removedGroup
     customAttribute1=""
     customAttribute2=""
-    customAttribute3=""
-    customAttribute4=""
     remaningGroups="'" + $remaningGroups + "'" } | Export-Csv "events.csv" -NoTypeInformation -Append
 }
 try {
