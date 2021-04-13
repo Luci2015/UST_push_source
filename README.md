@@ -46,6 +46,7 @@ This is a sample file that contains the suite of scripts to be run in order to h
  
  # Known issues
  - the PowerShell script only works with events for Global Security groups and Universal Security groups only; those groups are also mapped in UST's ```user-sync-config.yml``` file
+ - the nested group membership is not suported; although the event gets extracted, the nested group most likely is not part of the mapped groups, hence event is discarded
  - the script was tested for an AD forest with one domain tree
 
 
