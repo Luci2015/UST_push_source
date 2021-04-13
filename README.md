@@ -19,7 +19,7 @@ $Begin = (Get-Date).AddHours(-0.5)
 ```text
 "mail", "Country", "sn", "GivenName", "UserPrincipalName", "MemberOf", "Enabled"
 ```
-- modify which object properties should point to what variable. As a 'default' the script contains the ```username``` and ```domain``` values initialised as empty strings. For UST sync, this means Username=Email field value in Admin Console. If these need to be different, make sure ```email``` and ```username``` point to the correct variables holding the required values. You will also notice the *customAttribute1-4*, which do not have proper mapping - use them in conjunction with any custom attribute you might need extracted (see previous bullet-point).  
+- modify which object properties should point to what variable. As a 'default' the script contains the ```username``` and ```domain``` values initialised as empty strings. For UST sync, this means Username=Email field value in Admin Console. If these need to be different, make sure ```email``` and ```username``` point to the correct variables holding the required values. You will also notice the *customAttribute1-2*, which do not have proper mapping - use them in conjunction with any custom attribute you might need extracted (see previous bullet-point).  
 - the ps script hardcodes the resulting csv events file to ```events.csv```; if you require a different file name, change the values in the last 2 lines of the script  
 
 ### prepare_push_list.py  

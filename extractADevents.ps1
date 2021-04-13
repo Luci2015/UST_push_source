@@ -8,9 +8,12 @@
 # remove old input files
 Remove-Item "events.csv"
 Remove-Item "push_list.csv"
+
 # get events since 30 min ago (-0.5):
 $Begin = (Get-Date).AddHours(-0.5)
 $Events = Get-EventLog -logname Security  -After $Begin | where { $_.eventID -eq 4728 -or $_.EventID -eq 4729 -or $_.EventID -eq 4722 -or $_.EventID -eq 4725 -or $_.EventID -eq 4756 -or $_.EventID -eq 4757}
+
+$output_file = "events.csv"
 $already_queried = @{}
 $ignore_list = @{}
 $content = @{}
@@ -74,9 +77,9 @@ foreach($event in $Events){
     removedGroup=$removedGroup
     customAttribute1=""
     customAttribute2=""
-    remaningGroups="'" + $remaningGroups + "'" } | Export-Csv "events.csv" -NoTypeInformation -Append
+    remaningGroups="'" + $remaningGroups + "'" } | Export-Csv $output_file -NoTypeInformation -Append
 }
 try {
-    (Get-Content "events.csv").replace('"', '').replace("'",'"')| Set-Content "events.csv"
+    (Get-Content $output_file).replace('"', '').replace("'",'"')| Set-Content $output_file
     } catch { Write-Warning "No events found" }
 
