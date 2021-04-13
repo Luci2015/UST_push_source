@@ -19,7 +19,8 @@ foreach($event in $Events){
 	# this user was already queried, so pick the values from hash table
 	$username = $already_queried.$dn.u
 	$remaningGroups = $already_queried.$dn.g
-  } else {  
+  } else {
+         try {  
 	# change extracted Properties as needed
         $username =  Get-ADUser -Identity $dn -Properties ("mail",
                                                            "Country",
@@ -27,7 +28,11 @@ foreach($event in $Events){
                                                            "GivenName",
                                                            "UserPrincipalName",
                                                            "MemberOf",
-                                                           "Enabled")
+                                                           "Enabled") 
+        } catch {
+                 # not an AD User object, so skip it
+                 Continue
+        }
         $trgt = @()
         foreach ($g in $username.MemberOf){ $trgt += (Get-ADGroup $g -Properties "CN").CN }
         $remaningGroups = $trgt -join ","
