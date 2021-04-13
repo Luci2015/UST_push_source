@@ -12,13 +12,20 @@ Remove-Item "push_list.csv"
 $Begin = (Get-Date).AddHours(-0.5)
 $Events = Get-EventLog -logname Security  -After $Begin | where { $_.eventID -eq 4728 -or $_.EventID -eq 4729 -or $_.EventID -eq 4722 -or $_.EventID -eq 4725 -or $_.EventID -eq 4756 -or $_.EventID -eq 4757}
 $already_queried = @{}
+$ignore_list = @{}
 $content = @{}
 foreach($event in $Events){
   $dn = ($event | Select-Object @{Name="dn";Expression={$_.ReplacementStrings[0]}}).dn
+
+  if ($ignore_list.ContainsKey($dn)) {
+      # not an AD User object
+      Continue
+  }
+
   if ($already_queried.ContainsKey($dn)){
-	# this user was already queried, so pick the values from hash table
-	$username = $already_queried.$dn.u
-	$remaningGroups = $already_queried.$dn.g
+	    # this user was already queried, so pick the values from hash table
+	    $username = $already_queried.$dn.u
+	    $remaningGroups = $already_queried.$dn.g
   } else {
          try {  
 	# change extracted Properties as needed
@@ -31,6 +38,7 @@ foreach($event in $Events){
                                                            "Enabled") 
         } catch {
                  # not an AD User object, so skip it
+                 $ignore_list.Add($dn, "ignored")
                  Continue
         }
         $trgt = @()
@@ -70,6 +78,7 @@ foreach($event in $Events){
     customAttribute4=""
     remaningGroups="'" + $remaningGroups + "'" } | Export-Csv "events.csv" -NoTypeInformation -Append
 }
-
-(Get-Content "events.csv").replace('"', '').replace("'",'"')| Set-Content "events.csv"
+try {
+    (Get-Content "events.csv").replace('"', '').replace("'",'"')| Set-Content "events.csv"
+    } catch { Write-Warning "No events found" }
 
