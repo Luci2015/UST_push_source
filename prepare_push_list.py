@@ -107,7 +107,7 @@ class UMAPI_PUSH(object):
                 # group add event
                 elif row['eventID'] in ['4728', '4756']:
                     self.logger.debug('is an add to group event')
-                    if not memberOf & mapped_groups:
+                    if not (memberOf & mapped_groups):
                         self.logger.debug('skipping: not a mapped group')
                         continue
                 # remove from group event (4729)
