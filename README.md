@@ -37,7 +37,7 @@ This is a sample file that contains the suite of scripts to be run in order to h
 - line 10: if *Python* is installed and recognised as a global command, it does not need any change, otherwise full path to ```python.exe``` is required
 - line 17: for version of UST >= 2.6.0, the provided command line and arguments (```user-sync.exe -t --strategy push --users file push_list.csv --process-groups```) runs a test-mode instance of the UST, targeting the ```push_list.csv``` file. Remove *-t* for a live run and for changes to be applied in Admin Console. Replace ```push_list.csv``` with the actual push list csv file name if you modified it in the ```prepare_push_list.py``` script.  
 
-## What will happen
+### What will happen
 - the PS script will extract events 4722, 4725, 4728, 4729, 4756 and 4757 from AD's audit logs (enable/disable account, add/remove to/from global/universal security group) for the past given time
 - the PS script will produce an events csv file that will serve as input for the prepare_push_list Python script
 - prepare_push_list.py will run and filter the accounts found in the event, so that only the ones that need to be pushed in the Admin Console for a change are part of the resulting csv file. These accounts suffered a group change and that group is also mentioned as a User Sync Tool mapped LDAP group name. Disabling or enabling the account can also make it appear or disappear in/from one of the LDAP mapped groups and the script accounts for this scenario as well.
