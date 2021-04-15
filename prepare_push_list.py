@@ -101,7 +101,7 @@ class UMAPI_PUSH(object):
                     if d_key in self.disabled_accounts.keys():
                         del self.disabled_accounts[d_key]
                     # check if it is still memeber of mapped LDAP groups upon enabling
-                    if user['groups'] and not (memberOf & mapped_groups):
+                    if not user['groups'] or not (memberOf & mapped_groups):
                         self.logger.debug('skipping: no mapped group(s) membership')
                         continue
                 # group add event
