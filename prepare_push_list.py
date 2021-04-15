@@ -46,7 +46,7 @@ class UMAPI_PUSH(object):
         user['country'] = row['country']
         user['firstname'] = row['firstname']
         user['lastname'] = row['lastname']
-        user['groups'] = row['remaningGroups']
+        user['groups'] = row['remainingGroups']
         user['domain'] = row['domain']
         user['type'] = 'federatedID'
         return user
@@ -79,7 +79,7 @@ class UMAPI_PUSH(object):
             csv_r = reversed(list(csv.DictReader(f, delimiter=',')))
             for row in csv_r:
                 self.logger.debug('event: {}, user: {}, memberOf: {}'
-                    .format(row['eventID'], row['email'], row['remaningGroups']))
+                    .format(row['eventID'], row['email'], row['remainingGroups']))
                 user = self.user_init(row)
                 d_key = user['email'].lower()
                 # filter out non-email accounts
