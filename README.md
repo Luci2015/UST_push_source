@@ -3,12 +3,17 @@ Obtain a csv list of accounts to use as source for 'push' stratergy of UST, by q
 
 ## Requirements:
 - at least Python 3 installed
-- Python's PyYAML module installed (```pip install PyYAML```)
+- Python's PyYAML module installed (`pip install PyYAML`)
 - access to run a PowerShell script on the AD machine
 - resolve any permission needed to access the AD audit log for the running account
 
 ## Configuration
-For the ease of this setup, the following setup assumes the scripts are going to reside inside User Sync Tool's folder, which runs on the AD machine. 
+For the ease of this setup, the following setup assumes the scripts are going to reside inside User Sync Tool's folder, which runs on the AD machine.  
+Files needed:  
+- `extract-events-v2.ps1`
+- `prepare_push_list.py`
+- `pushUMAPI.bat` (optional, but handy to have) 
+Copy the above files inside User Sync Tool's folder, next to the `user-sync-config.yml`. Below there are some pointers on how to edit these files.
 
 ### extract-events-v2.ps1
 This script should manage events for users that are direct memebrs of UST's mapped group or their nested groups. Things to configure:
@@ -29,14 +34,14 @@ $mapped_groups = @("CN=group1,OU=wwds,DC=cbart,DC=local","CN=group2,OU=wwds,DC=c
 ```text
 "mail", "c", "sn", "GivenName", "UserPrincipalName", "MemberOf", "Enabled", "DistinguishedName"
 ```
-- the last `PSCustomObject` contains a mapping of the csv export file columns and the values it should pick from each variable. As a 'default' the script contains the ```username``` and ```domain``` values initialised as empty strings. For UST sync, this means Username=Email field value in Admin Console. If these need to be different, make sure ```email``` and ```username``` point to the correct variables. You will also notice the *customAttribute1-2*, which do not have proper mapping - use them in conjunction with any custom attribute you might need extracted (see previous bullet-point).
-- the ps script hardcodes the resulting csv events file to ```events.csv```; if you require a different file name, change the values in the last 2 lines of the script  
+- the last `PSCustomObject` contains a mapping of the csv export file columns and the values it should pick from each variable. As a 'default' the script contains the `username` and `domain` values initialised as empty strings. For UST sync, this means Username=Email field value in Admin Console. If these need to be different, make sure `email` and `username` point to the correct variables. You will also notice the *customAttribute1-2*, which do not have proper mapping - use them in conjunction with any custom attribute you might need extracted (see previous bullet-point).
+- the ps script hardcodes the resulting csv events file to `events.csv`; if you require a different file name, change the values in the last 2 lines of the script  
 
 ### prepare_push_list.py  
-- if you modified the *events.csv* file name in the ps script, make the same change for ```EVENTS_FILE_PATH```
-- ```PUSH_FILE_PATH``` is initialised to ```push_list.csv``` as name of the output csv file of this script, which will be used as the source for UST later
-- ```UST_FILE_PATH``` is targeting the ```user-sync-config.yml```; as mentioned, this script file is in the same folder as UST, so there is no need to use the absolute path
-- ```LOGS_FOLDER``` is not initialised with a name, but since this runs on a Windows machine, it could be modified to UST's usual logs folder, in this format: ```'C:\\path_to_UST_folder\\logs\\'```; use the double backslashes!
+- if you modified the *events.csv* file name in the ps script, make the same change for `EVENTS_FILE_PATH`
+- `PUSH_FILE_PATH` is initialised to `push_list.csv` as name of the output csv file of this script, which will be used as the source for UST later
+- `UST_FILE_PATH` is targeting the `user-sync-config.yml`; as mentioned, this script file is in the same folder as UST, so there is no need to use the absolute path
+- `LOGS_FOLDER` is not initialised with a name, but since this runs on a Windows machine, it could be modified to UST's usual logs folder, in this format: `'C:\\path_to_UST_folder\\logs\\'`; use the double backslashes!
 
 This Python script will filter the accounts appearing in the events, so that they are the only ones that need a change in Admin Console.
 
