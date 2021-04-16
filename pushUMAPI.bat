@@ -3,7 +3,7 @@ REM add below the full path to the folder location where extractADevents.ps1 is 
 cd "C:\path\to\folder"
 
 REM replace below with absolute path to the extractADevents.ps1 file itself:
-PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& 'C:\path\to\folder\extractADevents.ps1'"
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& 'C:\path\to\folder\extract-events-v2.ps1'"
 
 REM if python is installed and recognised as global command use below
 REM if not, use abosolute path to python.exe
