@@ -57,6 +57,7 @@ This is a sample file that contains the suite of scripts to be run in order to h
 ## Limitations
  - the PowerShell script only works with events for Global and Universal Security groups only; those groups are also mapped in UST's `user-sync-config.yml` file
  - the script was tested for an AD forest with one domain tree; for more complicated scenarios one could take into account running this script on multiple AD forests and uniting the results in one csv file for feed to UST
- - if nested group lookup is required, the script contains dedicated Active Directory queries, so it will fail for other LDAP servers.
+ - if nested group lookup is required, the script contains dedicated Active Directory queries, so it will fail for other LDAP servers.  
+
 
 
