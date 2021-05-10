@@ -3,7 +3,7 @@ Obtain a csv list of accounts to use as source for 'push' stratergy of UST, by q
 
 ## Requirements:
 - at least Python 3 installed
-- Python's PyYAML module installed (`pip install PyYAML`)
+- PyYAML module installed (`pip install PyYAML`)
 - access to run a PowerShell script on the AD machine
 - resolve any permission needed to access the AD audit log for the running account
 
