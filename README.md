@@ -57,12 +57,13 @@ This is a sample file that contains the suite of scripts to be run in order to h
 - the PS script will produce an `events csv` file that will serve as input for the `prepare_push_list` Python script
 - `prepare_push_list.py` will run and filter the resulting accounts some more, so that only the ones that need to be modified in the Admin Console are part of the resulting csv file. These accounts suffered a group change and that group is also mentioned as a User Sync Tool mapped LDAP group name. Disabling or enabling the account can also make it appear or disappear in/from one of the LDAP mapped groups and the script accounts for this scenario as well.
 - with the resulting `push_list.csv` file, UST is run and the changes are pushed in the Admin Console: new accounts get added to mapped groups, old accounts get added or removed from mapped groups, suspended accounts get removed from all mapped groups.  
- No account removal from Admin Console's Users menu happens, just group membership processing.
+- No account removal from Admin Console's Users menu happens, just group membership processing.  
+- members of nested groups inside the LDAP can also be in scope, if `nested_group_lookup` is enabled
  
 ## Limitations
  - the PowerShell script only works with events for Global and Universal Security groups only; those groups are also mapped in UST's `user-sync-config.yml` file
  - the script was tested for an AD forest with one domain tree; for more complicated scenarios one could take into account running this script on multiple AD forests and uniting the results in one csv file for feed to UST
- - if nested group lookup is required, the script contains dedicated Active Directory queries, so it will fail for other LDAP servers.  
+ - the script contains dedicated Active Directory ldap queries
 
 
 
